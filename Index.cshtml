@@ -1,0 +1,46 @@
+﻿@model PhoneNumberDetection.Models.InputModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Phone Number Checker</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="card-header bg-primary text-white text-uppercase">
+            <h4>Phone Number Checker</h4>
+        </div>
+        &nbsp;
+        <form asp-action="Index" method="post">        
+                <div class="form-group">               
+                <textarea asp-for="TextInput" class="form-control" rows="1" placeholder="Enter text"></textarea>
+                <span asp-validation-for="TextInput" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Check Text</button>
+            </div>
+        </form>
+        
+    @if (Model!= null)
+        {
+            <div class="alert alert-info">
+                @Model.Message
+                @if (Model.DetectedPhoneNumbers.Any())
+                {
+                    <ul>
+                        @foreach (var number in Model.DetectedPhoneNumbers)
+                        {
+                            <li>@number</li>
+                        }
+                    </ul>
+                }
+            </div>
+        }
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
